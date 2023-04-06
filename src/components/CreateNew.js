@@ -5,24 +5,24 @@ const CreateNew = (props) => {
   // const [content, setContent] = useState('')
   // const [author, setAuthor] = useState('')
   // const [info, setInfo] = useState('')
-  const content = useField("text")
-  const author = useField("text")
-  const info = useField("text")
+  const {reset: contentReset, ...contentWithoutReset} = useField("text")
+  const {reset: authorReset, ...authorWithoutReset} = useField("text")
+  const {reset: infoReset, ...infoWithoutReset} = useField("text")
 
   const handleSubmit = (e) => {
     e.preventDefault()
     props.addNew({
-      content: content.value,
-      author: author.value,
-      info: info.value,
+      content: contentWithoutReset.value,
+      author: authorWithoutReset.value,
+      info: infoWithoutReset.value,
       votes: 0
     })
   }
 
   const handleReset = () => {
-    content.onReset()
-    author.onReset()
-    info.onReset()
+    contentReset()
+    authorReset()
+    infoReset()
   }
 
   return (
@@ -31,15 +31,15 @@ const CreateNew = (props) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input {...content} />
+          <input {...contentWithoutReset} />
         </div>
         <div>
           author
-          <input {...author} />
+          <input {...authorWithoutReset} />
         </div>
         <div>
           url for more info
-          <input {...info} />
+          <input {...infoWithoutReset} />
         </div>
         <button type="submit">create</button>
         <button type="button" onClick={handleReset}>reset</button>
